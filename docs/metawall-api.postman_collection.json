@@ -334,7 +334,7 @@
 					"response": []
 				},
 				{
-					"name": "取得個人的貼文",
+					"name": "取得特定會員的貼文",
 					"request": {
 						"auth": {
 							"type": "bearer",
