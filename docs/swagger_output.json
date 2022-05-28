@@ -5,7 +5,7 @@
     "description": "METAWALL 的 API 文件",
     "version": "1.0.0"
   },
-  "host": "metawall-api.herokuapp.com",
+  "host": "metawall-api-v1.herokuapp.com",
   "basePath": "/",
   "tags": [
     {
