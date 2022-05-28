@@ -38,10 +38,6 @@ const post = {
       .populate({ path: 'user', select: 'name avatar' })
       .populate({
         path: 'messages',
-        populate: {
-          path: 'user',
-          select: 'name avatar',
-        },
         options: { sort: { createdAt: -1 } },
       })
       .sort({
@@ -103,10 +99,6 @@ const post = {
       .populate({ path: 'user', select: 'name avatar' })
       .populate({
         path: 'messages',
-        populate: {
-          path: 'user',
-          select: 'name avatar',
-        },
         options: { sort: { createdAt: -1 } },
       })
       .sort({
@@ -136,10 +128,6 @@ const post = {
       .populate({ path: 'user', select: 'name avatar' })
       .populate({
         path: 'messages',
-        populate: {
-          path: 'user',
-          select: 'name avatar',
-        },
         options: { sort: { createdAt: -1 } },
       });
     if (!existedPost) return next(appError(400, '尚未發布貼文'));
@@ -173,6 +161,7 @@ const post = {
     const payload = { content, user: user._id };
     if (image) payload.image = image;
     const post = await Post.create(payload);
+    post.messages = [];
 
     res.status(201).json(getHttpResponseContent(post));
   }),
@@ -190,18 +179,12 @@ const post = {
     const existedPost = await Post.findById(postId);
     if (!existedPost) return next(appError(400, '尚未發布貼文'));
 
-    const message = await Message.create({ user: user._id, content });
-    await Post.updateOne(
-      { _id: postId },
-      {
-        messages: [...existedPost.messages, message._id],
-      }
-    );
-
-    const currentMessage = await Message.findById(message._id).populate({
-      path: 'user',
-      select: 'name avatar',
+    const message = await Message.create({
+      user: user._id,
+      post: postId,
+      content,
     });
+    const currentMessage = await Message.findById(message._id);
     res.status(201).json(getHttpResponseContent(currentMessage));
   }),
   // 按讚貼文
@@ -240,8 +223,9 @@ const post = {
     if (existedPost.user.toString() !== user._id.toString())
       return next(appError(400, '您無權限刪除此貼文'));
 
-    if (existedPost.messages.length) {
-      await Message.deleteMany({ _id: { $in: existedPost.messages } });
+    const postMessages = await Message.find({ post: postId });
+    if (postMessages.length) {
+      await Message.deleteMany({ post: postId });
     }
     await Post.deleteOne({ _id: postId });
     res.status(201).json(getHttpResponseContent('刪除貼文成功'));

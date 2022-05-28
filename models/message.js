@@ -8,6 +8,11 @@ const schema = new Schema(
       ref: 'User',
       required: [true, '請填寫留言者'],
     },
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: 'Post',
+      required: [true, '請填寫特定的貼文'],
+    },
     content: {
       type: String,
       required: [true, '請填寫留言內容'],
@@ -19,5 +24,12 @@ const schema = new Schema(
   },
   { versionKey: false }
 );
+schema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'user',
+    select: 'name avatar',
+  });
+  next();
+});
 
 module.exports = mongoose.model('Message', schema);

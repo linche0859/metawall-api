@@ -13,13 +13,21 @@ const schema = new Schema(
     },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
     createdAt: {
       type: Date,
       default: Date.now,
     },
   },
-  { versionKey: false }
+  {
+    versionKey: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
+schema.virtual('messages', {
+  ref: 'Message',
+  foreignField: 'post',
+  localField: '_id',
+});
 
 module.exports = mongoose.model('Post', schema);
