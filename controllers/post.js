@@ -258,7 +258,7 @@ const post = {
 
     const existedMessage = await Message.findById(messageId);
     if (!existedMessage) return next(appError(400, '尚未新增留言'));
-    if (existedMessage.user.toString() !== user._id.toString())
+    if (existedMessage.user._id.toString() !== user._id.toString())
       return next(appError(400, '您無權限刪除此留言'));
 
     await Message.deleteOne({ _id: messageId });
