@@ -16,6 +16,9 @@ const file = {
       if (dimensions.width !== dimensions.height) {
         return next(appError(400, '圖片寬高比必需為 1:1，請重新輸入'));
       }
+      if (dimensions.width < 300) {
+        return next(appError(400, '解析度寬度至少 300 像素以上，請重新輸入'));
+      }
     }
     const link = await uploadImgur(file.buffer);
     res.status(201).json(getHttpResponseContent(link));
