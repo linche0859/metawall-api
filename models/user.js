@@ -34,6 +34,11 @@ const schema = new Schema(
       default: '',
       select: false,
     },
+    facebookId: {
+      type: String,
+      default: '',
+      select: false,
+    },
   },
   { versionKey: false }
 );
