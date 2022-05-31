@@ -23,7 +23,10 @@ router.get(
 );
 router.get(
   '/auth/google/callback',
-  passport.authenticate('google', { session: false }),
+  passport.authenticate('google', {
+    session: false,
+    failureRedirect: `${process.env.APP_URL}/login`,
+  }),
   /**
    * #swagger.tags = ['Auth']
    * #swagger.summary = '已授權的 Google 帳號導向'
@@ -60,7 +63,10 @@ router.get(
 );
 router.get(
   '/auth/facebook/callback',
-  passport.authenticate('facebook', { session: false }),
+  passport.authenticate('facebook', {
+    session: false,
+    failureRedirect: `${process.env.APP_URL}/login`,
+  }),
   /**
    * #swagger.tags = ['Auth']
    * #swagger.summary = '已授權的 Facebook 帳號導向'

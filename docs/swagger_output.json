@@ -1393,7 +1393,7 @@
         ]
       }
     },
-    "/auth/google": {
+    "\r/auth/google": {
       "get": {
         "tags": [
           "Auth"
@@ -1421,12 +1421,68 @@
         }
       }
     },
-    "/auth/google/callback": {
+    "\r/auth/google/callback": {
       "get": {
         "tags": [
           "Auth"
         ],
         "summary": "已授權的 Google 帳號導向",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "導向成功",
+            "schema": {
+              "type": "string",
+              "example": "導頁至前台位置",
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "導向失敗",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "\r/auth/facebook": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Facebook 帳號登入",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "導頁成功",
+            "schema": {
+              "type": "string",
+              "example": "導頁至 Facebook 登入頁面",
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "導頁失敗",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "\r/auth/facebook/callback": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "已授權的 Facebook 帳號導向",
         "description": "",
         "parameters": [],
         "responses": {
