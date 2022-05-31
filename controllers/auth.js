@@ -35,6 +35,7 @@ const auth = {
   // facebook oauth
   facebook: asyncHandleError(async (req, res, next) => {
     console.log(req.user);
+    console.log(req.user._json.picture.type('large'));
     res.send('成功');
     // const {
     //   user: { sub, name, email, picture },
