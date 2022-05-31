@@ -48,7 +48,7 @@ const auth = {
       );
     }
     if (!existedEmail) {
-      const hash = await getEncryptedPassword(sub);
+      const hash = await getEncryptedPassword(id);
       const newUser = await User.create({
         name,
         email,
