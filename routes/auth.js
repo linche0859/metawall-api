@@ -42,7 +42,7 @@ router.get(
 );
 router.get(
   '/auth/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'public_profile'] })
+  passport.authenticate('facebook')
   /**
    * #swagger.tags = ['Auth']
    * #swagger.summary = 'Facebook 帳號登入'
