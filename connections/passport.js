@@ -21,24 +21,10 @@ passport.use(
       clientID: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       callbackURL: process.env.FACEBOOK_CALLBACK_URL,
-      profileFields: [
-        'id',
-        'displayName',
-        'email',
-        'picture.type(large)',
-        'gender',
-      ],
+      profileFields: ['id', 'displayName', 'email'],
     },
     (accessToken, refreshToken, profile, cb) => {
-      console.log(
-        'https://graph.facebook.com/' +
-          profile.username +
-          '/picture' +
-          '?width=200&height=200' +
-          '&access_token=' +
-          accessToken
-      );
-      return cb(null, profile);
+      return cb(null, profile._json);
     }
   )
 );
