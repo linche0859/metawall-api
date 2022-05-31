@@ -26,7 +26,7 @@ router.get(
   passport.authenticate('google', { session: false }),
   /**
    * #swagger.tags = ['Auth']
-   * #swagger.summary = '已授權的 Facebook 帳號導向'
+   * #swagger.summary = '已授權的 Google 帳號導向'
    */
   /**
     #swagger.responses[302] = {
@@ -42,15 +42,15 @@ router.get(
 );
 router.get(
   '/auth/facebook',
-  passport.authenticate('facebook', { scope: ['email'] })
+  passport.authenticate('facebook', { scope: ['email', 'profile'] })
   /**
    * #swagger.tags = ['Auth']
-   * #swagger.summary = 'Google 帳號登入'
+   * #swagger.summary = 'Facebook 帳號登入'
    */
   /**
     #swagger.responses[302] = {
       description: '導頁成功',
-      schema: '導頁至 Google 登入頁面',
+      schema: '導頁至 Facebook 登入頁面',
     }
     #swagger.responses[500] = {
       description: '導頁失敗',
