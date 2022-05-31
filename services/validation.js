@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
  * @returns {string}
  */
 const getEncryptedPassword = async (password) => {
-  const saltRounds = process.env.SALT_ROUNDS
-    ? parseInt(process.env.SALT_ROUNDS)
+  const saltRounds = process.env.BCRYPT_SALT_ROUNDS
+    ? parseInt(process.env.BCRYPT_SALT_ROUNDS)
     : 12;
   const hash = await bcrypt.hash(password, saltRounds);
   return hash;

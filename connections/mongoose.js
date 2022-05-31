@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const dbUrl = process.env.DATABASE_URL.replace(
+const dbUrl = process.env.MONGODB_URL.replace(
   '<password>',
-  process.env.DATABASE_PASSWORD
+  process.env.MONGODB_PASSWORD
 );
 mongoose
   .connect(dbUrl)
