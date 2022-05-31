@@ -23,7 +23,7 @@ passport.use(
       callbackURL: process.env.FACEBOOK_CALLBACK_URL,
     },
     (accessToken, refreshToken, profile, cb) => {
-      return cb(null, profile._json);
+      return cb(null, profile);
     }
   )
 );
