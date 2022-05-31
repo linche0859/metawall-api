@@ -57,7 +57,6 @@ const auth = {
       });
       user = newUser;
     }
-    console.log('user', user);
     res.redirect(`${process.env.APP_URL}/oauth?token=${getJWT(user)}`);
   }),
 };

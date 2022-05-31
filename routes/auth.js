@@ -26,7 +26,7 @@ router.get(
   passport.authenticate('google', { session: false }),
   /**
    * #swagger.tags = ['Auth']
-   * #swagger.summary = '已授權的 Google 帳號導向'
+   * #swagger.summary = '已授權的 Facebook 帳號導向'
    */
   /**
     #swagger.responses[302] = {
