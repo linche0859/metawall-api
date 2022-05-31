@@ -30,6 +30,14 @@ passport.use(
       ],
     },
     (accessToken, refreshToken, profile, cb) => {
+      console.log(
+        'https://graph.facebook.com/' +
+          profile.username +
+          '/picture' +
+          '?width=200&height=200' +
+          '&access_token=' +
+          accessToken
+      );
       return cb(null, profile);
     }
   )
