@@ -5,8 +5,12 @@ const logger = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./docs/swagger_output.json');
+const fileErrorMiddleware = require('./middlewares/errors/file');
+const jwtErrorMiddleware = require('./middlewares/errors/jwt');
+const syntaxErrorMiddleware = require('./middlewares/errors/syntax');
+const validationErrorMiddleware = require('./middlewares/errors/validation');
+const errorMiddleware = require('./middlewares/errors/index');
 const { appError } = require('./services/error');
-const errorMiddleware = require('./middlewares/handle-error');
 
 require('dotenv').config();
 require('./connections/mongoose');
@@ -50,8 +54,10 @@ app.use((req, res, next) => {
 });
 
 // error handler
+app.use(fileErrorMiddleware);
+app.use(jwtErrorMiddleware);
+app.use(syntaxErrorMiddleware);
+app.use(validationErrorMiddleware);
 app.use(errorMiddleware);
-
-// 捕捉
 
 module.exports = app;
