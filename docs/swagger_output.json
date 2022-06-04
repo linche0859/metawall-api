@@ -1714,6 +1714,10 @@
         "gender": {
           "type": "string",
           "example": "male"
+        },
+        "thirdAuth": {
+          "type": "boolean",
+          "example": false
         }
       }
     },
@@ -1735,6 +1739,10 @@
         "gender": {
           "type": "string",
           "example": "male"
+        },
+        "thirdAuth": {
+          "type": "boolean",
+          "example": false
         },
         "tracking": {
           "type": "number",

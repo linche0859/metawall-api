@@ -12,6 +12,7 @@ const schema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Post',
       required: [true, '請填寫特定的貼文'],
+      select: false,
     },
     content: {
       type: String,

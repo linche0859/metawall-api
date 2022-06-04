@@ -32,6 +32,7 @@ const Posts = {
 const User = {
   ...user,
   gender: 'male',
+  thirdAuth: false,
 };
 const SpecificUser = {
   ...User,
