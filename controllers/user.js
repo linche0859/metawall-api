@@ -17,11 +17,11 @@ const {
 const user = {
   // 取得會員資訊
   profile: asyncHandleError(async (req, res, next) => {
-    const user = await User.findById(req.user._id).select(
-      '+googleId +facebookId'
-    );
+    const { user } = req;
     const result = { ...user._doc };
-    result.thirdAuth = !!(user.googleId || user.facebookId);
+    result.thirdAuth = !!(result.googleId || result.facebookId);
+    delete result.googleId;
+    delete result.facebookId;
     res.status(200).json(getHttpResponseContent(result));
   }),
   // 取得特定的會員資訊

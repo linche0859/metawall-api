@@ -18,7 +18,9 @@ const auth = asyncHandleError(async (req, res, next) => {
   const decryptedData = getDecryptedJWT(token);
   if (!decryptedData) return next(appError(401, errorMsg.auth));
 
-  const user = await User.findById(decryptedData.id);
+  const user = await User.findById(decryptedData.id).select(
+    '+googleId +facebookId'
+  );
   if (!user) return next(appError(401, errorMsg.auth));
 
   req.user = user;
