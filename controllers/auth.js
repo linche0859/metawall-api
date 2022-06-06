@@ -1,11 +1,10 @@
 const User = require('../models/user');
-const { asyncHandleError } = require('../services/error');
 const { getEncryptedPassword } = require('../services/validation');
 const { getJWT } = require('../services/auth');
 
 const auth = {
   // google oauth
-  google: asyncHandleError(async (req, res, next) => {
+  google: async (req, res, next) => {
     const {
       user: { sub, name, email, picture },
     } = req;
@@ -31,9 +30,9 @@ const auth = {
       user = newUser;
     }
     res.redirect(`${process.env.APP_URL}/oauth?token=${getJWT(user)}`);
-  }),
+  },
   // facebook oauth
-  facebook: asyncHandleError(async (req, res, next) => {
+  facebook: async (req, res, next) => {
     const {
       user: { id, name, email },
     } = req;
@@ -58,7 +57,7 @@ const auth = {
       user = newUser;
     }
     res.redirect(`${process.env.APP_URL}/oauth?token=${getJWT(user)}`);
-  }),
+  },
 };
 
 module.exports = auth;

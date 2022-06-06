@@ -2,16 +2,20 @@ const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/user');
 const auth = require('../middlewares/auth');
+const { catchAsync } = require('../services/error');
 
-router.get('/user/profile', auth, (req, res, next) =>
-  /**
+router.get(
+  '/user/profile',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Users']
    * #swagger.summary = '取得會員資訊'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -20,7 +24,7 @@ router.get('/user/profile', auth, (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '取得會員資訊成功',
       schema: { $ref: '#/definitions/User' }
@@ -32,17 +36,21 @@ router.get('/user/profile', auth, (req, res, next) =>
       }
     }
   */
-  UserController.profile(req, res, next)
+    UserController.profile
+  )
 );
-router.get('/user/:userId/profile', auth, (req, res, next) =>
-  /**
+router.get(
+  '/user/:userId/profile',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Users']
    * #swagger.summary = '取得特定的會員資訊'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -54,7 +62,7 @@ router.get('/user/:userId/profile', auth, (req, res, next) =>
       description: '會員編號',
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '取得會員資訊成功',
       schema: { $ref: '#/definitions/SpecificUser' }
@@ -64,17 +72,21 @@ router.get('/user/:userId/profile', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  UserController.getUserProfile(req, res, next)
+    UserController.getUserProfile
+  )
 );
-router.get('/user/:userId/check', auth, (req, res, next) =>
-  /**
+router.get(
+  '/user/:userId/check',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Users']
    * #swagger.summary = '驗證是否為有效的會員'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -86,7 +98,7 @@ router.get('/user/:userId/check', auth, (req, res, next) =>
       description: '會員編號',
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '驗證成功',
       schema: 'OK'
@@ -96,14 +108,17 @@ router.get('/user/:userId/check', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  UserController.checkUser(req, res, next)
+    UserController.checkUser
+  )
 );
-router.post('/user/sign_up', (req, res, next) =>
-  /**
-   * #swagger.tags = ['Users']
-   * #swagger.summary = '註冊會員'
-   */
-  /**
+router.post(
+  '/user/sign_up',
+  catchAsync(
+    /**
+     * #swagger.tags = ['Users']
+     * #swagger.summary = '註冊會員'
+     */
+    /**
     #swagger.parameters['parameter_name'] = {
       in: 'body',
       description: '註冊資料',
@@ -114,7 +129,7 @@ router.post('/user/sign_up', (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '註冊會員成功',
       schema: {
@@ -126,14 +141,17 @@ router.post('/user/sign_up', (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  UserController.signUp(req, res, next)
+    UserController.signUp
+  )
 );
-router.post('/user/sign_in', (req, res, next) =>
-  /**
-   * #swagger.tags = ['Users']
-   * #swagger.summary = '登入會員'
-   */
-  /**
+router.post(
+  '/user/sign_in',
+  catchAsync(
+    /**
+     * #swagger.tags = ['Users']
+     * #swagger.summary = '登入會員'
+     */
+    /**
     #swagger.parameters['parameter_name'] = {
       in: 'body',
       description: '登入資料',
@@ -143,7 +161,7 @@ router.post('/user/sign_in', (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '登入會員成功',
       schema: {
@@ -155,14 +173,18 @@ router.post('/user/sign_in', (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  UserController.signIn(req, res, next)
+    UserController.signIn
+  )
 );
-router.patch('/user/profile', auth, (req, res, next) =>
-  /**
-   * #swagger.tags = ['Users']
-   * #swagger.summary = '更新會員資訊'
-   */
-  /**
+router.patch(
+  '/user/profile',
+  auth,
+  catchAsync(
+    /**
+     * #swagger.tags = ['Users']
+     * #swagger.summary = '更新會員資訊'
+     */
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -171,7 +193,7 @@ router.patch('/user/profile', auth, (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.parameters['parameter_name'] = {
       in: 'body',
       description: '更新資料',
@@ -182,7 +204,7 @@ router.patch('/user/profile', auth, (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '更新會員資訊成功',
       schema: { $ref: '#/definitions/User' }
@@ -192,14 +214,18 @@ router.patch('/user/profile', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  UserController.updateProfile(req, res, next)
+    UserController.updateProfile
+  )
 );
-router.patch('/user/password', auth, (req, res, next) =>
-  /**
-   * #swagger.tags = ['Users']
-   * #swagger.summary = '更新會員密碼'
-   */
-  /**
+router.patch(
+  '/user/password',
+  auth,
+  catchAsync(
+    /**
+     * #swagger.tags = ['Users']
+     * #swagger.summary = '更新會員密碼'
+     */
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -208,7 +234,7 @@ router.patch('/user/password', auth, (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.parameters['parameter_name'] = {
       in: 'body',
       description: '更新資料',
@@ -218,7 +244,7 @@ router.patch('/user/password', auth, (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '更新會員密碼成功',
       schema: {
@@ -230,7 +256,8 @@ router.patch('/user/password', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  UserController.updatePassword(req, res, next)
+    UserController.updatePassword
+  )
 );
 
 module.exports = router;

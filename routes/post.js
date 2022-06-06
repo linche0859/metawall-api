@@ -2,16 +2,20 @@ const express = require('express');
 const router = express.Router();
 const PostController = require('../controllers/post');
 const auth = require('../middlewares/auth');
+const { catchAsync } = require('../services/error');
 
-router.get('/posts', auth, (req, res, next) =>
-  /**
+router.get(
+  '/posts',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '取得貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -40,23 +44,27 @@ router.get('/posts', auth, (req, res, next) =>
       type: 'string',
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '取得貼文成功',
       schema: { $ref: '#/definitions/Posts' }
     }
    */
-  PostController.getPosts(req, res, next)
+    PostController.getPosts
+  )
 );
-router.get('/posts/like', auth, (req, res, next) =>
-  /**
+router.get(
+  '/posts/like',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '取得按讚的貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -65,23 +73,27 @@ router.get('/posts/like', auth, (req, res, next) =>
       }
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '取得按讚的貼文成功',
       schema: [{ $ref: '#/definitions/Post' }]
     }
    */
-  PostController.getLikePosts(req, res, next)
+    PostController.getLikePosts
+  )
 );
-router.get('/posts/:userId/user', auth, (req, res, next) =>
-  /**
+router.get(
+  '/posts/:userId/user',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '取得個人的貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -113,23 +125,27 @@ router.get('/posts/:userId/user', auth, (req, res, next) =>
       type: 'string',
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '取得個人的貼文成功',
       schema: { $ref: '#/definitions/Posts' }
     }
    */
-  PostController.getUserPosts(req, res, next)
+    PostController.getUserPosts
+  )
 );
-router.get('/post/:postId', auth, (req, res, next) =>
-  /**
+router.get(
+  '/post/:postId',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '取得特定的貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -141,7 +157,7 @@ router.get('/post/:postId', auth, (req, res, next) =>
       description: '貼文編號',
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '取得特定的貼文成功',
       schema: { $ref: '#/definitions/Post' }
@@ -151,17 +167,21 @@ router.get('/post/:postId', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
    */
-  PostController.getSpecificPost(req, res, next)
+    PostController.getSpecificPost
+  )
 );
-router.get('/post/:postId/check', auth, (req, res, next) =>
-  /**
+router.get(
+  '/post/:postId/check',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '驗證是否為有效的貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -173,7 +193,7 @@ router.get('/post/:postId/check', auth, (req, res, next) =>
       description: '貼文編號',
     }
    */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '驗證成功',
       schema: 'OK'
@@ -183,17 +203,21 @@ router.get('/post/:postId/check', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
    */
-  PostController.checkPost(req, res, next)
+    PostController.checkPost
+  )
 );
-router.post('/post', auth, (req, res, next) =>
-  /**
+router.post(
+  '/post',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '新增貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -210,7 +234,7 @@ router.post('/post', auth, (req, res, next) =>
       }
     }
   */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '新增貼文成功',
       schema: { $ref: '#/definitions/Post' }
@@ -220,17 +244,21 @@ router.post('/post', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  PostController.postOnePost(req, res, next)
+    PostController.postOnePost
+  )
 );
-router.post('/post/:postId/message', auth, (req, res, next) =>
-  /**
+router.post(
+  '/post/:postId/message',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '新增貼文留言'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -249,7 +277,7 @@ router.post('/post/:postId/message', auth, (req, res, next) =>
       }
     }
   */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '新增貼文留言成功',
       schema: { $ref: '#/definitions/Message' }
@@ -259,17 +287,21 @@ router.post('/post/:postId/message', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  PostController.postMessage(req, res, next)
+    PostController.postMessage
+  )
 );
-router.post('/post/:postId/like', auth, (req, res, next) =>
-  /**
+router.post(
+  '/post/:postId/like',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '按讚貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -281,7 +313,7 @@ router.post('/post/:postId/like', auth, (req, res, next) =>
       description: '貼文編號',
     }
   */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '按讚貼文成功',
       schema: { data: '按讚貼文成功' }
@@ -291,17 +323,21 @@ router.post('/post/:postId/like', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  PostController.postLike(req, res, next)
+    PostController.postLike
+  )
 );
-router.delete('/post/:postId', auth, (req, res, next) =>
-  /**
+router.delete(
+  '/post/:postId',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '刪除特定的貼文'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -313,7 +349,7 @@ router.delete('/post/:postId', auth, (req, res, next) =>
       description: '貼文編號',
     }
   */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '刪除貼文成功',
       schema: {
@@ -325,17 +361,21 @@ router.delete('/post/:postId', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  PostController.deletePost(req, res, next)
+    PostController.deletePost
+  )
 );
-router.delete('/post/:postId/like', auth, (req, res, next) =>
-  /**
+router.delete(
+  '/post/:postId/like',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '移除貼文的按讚'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -347,7 +387,7 @@ router.delete('/post/:postId/like', auth, (req, res, next) =>
       description: '貼文編號',
     }
   */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '移除貼文的按讚成功',
       schema: {
@@ -359,17 +399,21 @@ router.delete('/post/:postId/like', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  PostController.deleteLike(req, res, next)
+    PostController.deleteLike
+  )
 );
-router.delete('/post/:messageId/message', auth, (req, res, next) =>
-  /**
+router.delete(
+  '/post/:messageId/message',
+  auth,
+  catchAsync(
+    /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '刪除特定的留言'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -381,7 +425,7 @@ router.delete('/post/:messageId/message', auth, (req, res, next) =>
       description: '留言編號',
     }
   */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '刪除留言成功',
       schema: {
@@ -393,7 +437,8 @@ router.delete('/post/:messageId/message', auth, (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  PostController.deleteMessage(req, res, next)
+    PostController.deleteMessage
+  )
 );
 
 module.exports = router;

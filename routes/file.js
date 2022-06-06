@@ -3,16 +3,21 @@ const router = express.Router();
 const FileController = require('../controllers/file');
 const auth = require('../middlewares/auth');
 const upload = require('../middlewares/upload');
+const { catchAsync } = require('../services/error');
 
-router.post('/file/image', auth, upload.single('image'), (req, res, next) =>
-  /**
+router.post(
+  '/file/image',
+  auth,
+  upload.single('image'),
+  catchAsync(
+    /**
    * #swagger.tags = ['Files']
    * #swagger.summary = '上傳圖片'
    * #swagger.security = [{
       "apiKeyAuth": [] 
     }]
    */
-  /**
+    /**
     #swagger.parameters['Authorization'] = {
       in: 'header',
       description: 'JSON Web Token',
@@ -33,7 +38,7 @@ router.post('/file/image', auth, upload.single('image'), (req, res, next) =>
       description: '圖片檔案',
     }
    */
-  /**
+    /**
     #swagger.responses[201] = {
       description: '上傳成功',
       schema: {
@@ -45,7 +50,8 @@ router.post('/file/image', auth, upload.single('image'), (req, res, next) =>
       schema: { $ref: '#/definitions/Error' }
     }
    */
-  FileController.postImage(req, res, next)
+    FileController.postImage
+  )
 );
 
 module.exports = router;

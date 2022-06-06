@@ -10,7 +10,8 @@ const jwtErrorMiddleware = require('./middlewares/errors/jwt');
 const syntaxErrorMiddleware = require('./middlewares/errors/syntax');
 const validationErrorMiddleware = require('./middlewares/errors/validation');
 const errorMiddleware = require('./middlewares/errors/index');
-const { appError } = require('./services/error');
+const { AppError } = require('./services/error');
+const { httpStatusCode } = require('./services/enum');
 
 require('dotenv').config();
 require('./connections/mongoose');
@@ -50,7 +51,7 @@ app.use(`/api/doc`, swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  next(appError(404, '無此路由資訊'));
+  next(new AppError(httpStatusCode.NOT_FOUND, '無此路由資訊'));
 });
 
 // error handler

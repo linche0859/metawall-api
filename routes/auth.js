@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const AuthController = require('../controllers/auth');
+const { catchAsync } = require('../services/error');
 
 router.get(
   '/auth/google',
@@ -41,7 +42,7 @@ router.get(
       schema: { $ref: '#/definitions/Error' }
     }
    */
-  (req, res, next) => AuthController.google(req, res, next)
+  catchAsync(AuthController.google)
 );
 router.get(
   '/auth/facebook',
@@ -81,7 +82,7 @@ router.get(
       schema: { $ref: '#/definitions/Error' }
     }
    */
-  (req, res, next) => AuthController.facebook(req, res, next)
+  catchAsync(AuthController.facebook)
 );
 
 module.exports = router;

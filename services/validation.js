@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 /**
  * 取得加密後的密碼
  * @param {string} password 原始密碼
- * @returns {string}
+ * @returns {Promise.<string>}
  */
 const getEncryptedPassword = async (password) => {
   const saltRounds = process.env.BCRYPT_SALT_ROUNDS
@@ -18,7 +18,7 @@ const getEncryptedPassword = async (password) => {
  * 驗證密碼是否有效
  * @param {string} password 密碼
  * @param {string} comparedPassword 被比較的密碼
- * @returns {boolean}
+ * @returns {Promise.<boolean>}
  */
 const isValidPassword = async (password, comparedPassword) => {
   const valid = await bcrypt.compare(password, comparedPassword);

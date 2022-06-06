@@ -1,12 +1,12 @@
 const { handleError } = require('../../services/error');
-const { errorMsg } = require('../../services/enum');
+const { errorMsg, httpStatusCode } = require('../../services/enum');
 
 module.exports = (err, req, res, next) => {
   if (err.name === 'ValidationError') {
-    err.statusCode = 400;
+    err.statusCode = httpStatusCode.BAD_REQUEST;
     err.isOperational = true;
     err.isValidationError = true;
-    err.message = err.message || errorMsg.validation;
+    err.message = err.message || errorMsg.VALIDATION;
     return handleError(err, res);
   }
   next(err);
