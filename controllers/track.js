@@ -69,9 +69,7 @@ const track = {
       throw new AppError(httpStatusCode.BAD_REQUEST, '尚未追蹤該會員');
 
     await Track.deleteOne({ user: user._id, tracking: userId });
-    res
-      .status(httpStatusCode.CREATED)
-      .json(getHttpResponseContent('取消追蹤成功'));
+    res.status(httpStatusCode.OK).json(getHttpResponseContent('取消追蹤成功'));
   },
 };
 

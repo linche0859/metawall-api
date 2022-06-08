@@ -156,7 +156,7 @@ const post = {
       user,
       body: { content, image },
     } = req;
-    if (!content)
+    if (!content || validator.isEmpty(content, { ignore_whitespace: true }))
       throw new ValidationError(
         httpStatusCode.BAD_REQUEST,
         'content',
@@ -185,7 +185,7 @@ const post = {
     } = req;
     if (!(postId && isValidObjectId(postId)))
       throw new AppError(httpStatusCode.BAD_REQUEST, '請傳入特定的貼文');
-    if (!content)
+    if (!content || validator.isEmpty(content, { ignore_whitespace: true }))
       throw new AppError(httpStatusCode.BAD_REQUEST, '請填寫留言內容');
 
     const existedPost = await Post.findById(postId);
@@ -247,9 +247,7 @@ const post = {
       await Message.deleteMany({ post: postId });
     }
     await Post.deleteOne({ _id: postId });
-    res
-      .status(httpStatusCode.CREATED)
-      .json(getHttpResponseContent('刪除貼文成功'));
+    res.status(httpStatusCode.OK).json(getHttpResponseContent('刪除貼文成功'));
   },
   // 移除貼文的按讚
   deleteLike: async (req, res, next) => {
@@ -268,7 +266,7 @@ const post = {
 
     await Post.updateOne({ _id: postId }, { $pull: { likes: user._id } });
     res
-      .status(httpStatusCode.CREATED)
+      .status(httpStatusCode.OK)
       .json(getHttpResponseContent('移除貼文的按讚成功'));
   },
   // 刪除特定的留言
@@ -287,9 +285,7 @@ const post = {
       throw new AppError(httpStatusCode.BAD_REQUEST, '您無權限刪除此留言');
 
     await Message.deleteOne({ _id: messageId });
-    res
-      .status(httpStatusCode.CREATED)
-      .json(getHttpResponseContent('刪除留言成功'));
+    res.status(httpStatusCode.OK).json(getHttpResponseContent('刪除留言成功'));
   },
 };
 
