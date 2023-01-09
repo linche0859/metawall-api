@@ -5,7 +5,7 @@
     "description": "METAWALL 的 API 文件",
     "version": "1.0.0"
   },
-  "host": "metawall-api-v1.herokuapp.com",
+  "host": "lime-tender-hedgehog.cyclic.app",
   "basePath": "/",
   "tags": [
     {
@@ -43,7 +43,7 @@
   "consumes": [],
   "produces": [],
   "paths": {
-    "/user/profile": {
+    "\r/user/profile": {
       "get": {
         "tags": [
           "Users"
@@ -165,7 +165,7 @@
         }
       }
     },
-    "/user/{userId}/profile": {
+    "\r/user/{userId}/profile": {
       "get": {
         "tags": [
           "Users"
@@ -219,7 +219,7 @@
         ]
       }
     },
-    "/user/{userId}/check": {
+    "\r/user/{userId}/check": {
       "get": {
         "tags": [
           "Users"
@@ -277,7 +277,7 @@
         ]
       }
     },
-    "/user/sign_up": {
+    "\r/user/sign_up": {
       "post": {
         "tags": [
           "Users"
@@ -338,7 +338,7 @@
         }
       }
     },
-    "/user/sign_in": {
+    "\r/user/sign_in": {
       "post": {
         "tags": [
           "Users"
@@ -394,7 +394,7 @@
         }
       }
     },
-    "/user/password": {
+    "\r/user/password": {
       "patch": {
         "tags": [
           "Users"
@@ -467,7 +467,7 @@
         }
       }
     },
-    "/posts": {
+    "\r/posts": {
       "get": {
         "tags": [
           "Posts"
@@ -532,7 +532,7 @@
         ]
       }
     },
-    "/posts/like": {
+    "\r/posts/like": {
       "get": {
         "tags": [
           "Posts"
@@ -579,7 +579,7 @@
         ]
       }
     },
-    "/posts/{userId}/user": {
+    "\r/posts/{userId}/user": {
       "get": {
         "tags": [
           "Posts"
@@ -651,7 +651,7 @@
         ]
       }
     },
-    "/post/{postId}": {
+    "\r/post/{postId}": {
       "get": {
         "tags": [
           "Posts"
@@ -766,7 +766,7 @@
         ]
       }
     },
-    "/post/{postId}/check": {
+    "\r/post/{postId}/check": {
       "get": {
         "tags": [
           "Posts"
@@ -824,7 +824,7 @@
         ]
       }
     },
-    "/post": {
+    "\r/post": {
       "post": {
         "tags": [
           "Posts"
@@ -892,7 +892,7 @@
         ]
       }
     },
-    "/post/{postId}/message": {
+    "\r/post/{postId}/message": {
       "post": {
         "tags": [
           "Posts"
@@ -963,7 +963,7 @@
         ]
       }
     },
-    "/post/{postId}/like": {
+    "\r/post/{postId}/like": {
       "post": {
         "tags": [
           "Posts"
@@ -1087,7 +1087,7 @@
         ]
       }
     },
-    "/post/{messageId}/message": {
+    "\r/post/{messageId}/message": {
       "delete": {
         "tags": [
           "Posts"
@@ -1150,7 +1150,7 @@
         ]
       }
     },
-    "/tracks": {
+    "\r/tracks": {
       "get": {
         "tags": [
           "Tracks"
@@ -1197,7 +1197,7 @@
         ]
       }
     },
-    "/track/{userId}": {
+    "\r/track/{userId}": {
       "post": {
         "tags": [
           "Tracks"
@@ -1321,7 +1321,7 @@
         ]
       }
     },
-    "/file/image": {
+    "\r/file/image": {
       "post": {
         "tags": [
           "Files"
